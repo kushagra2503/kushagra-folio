@@ -2,14 +2,14 @@
 
 
 
-## Welcome to ED-Linux 1.0 LTS
+## Welcome to My-Computer v1.0
 
 
 
 #  Hi there,
-#  *I'm Edward*
+#  *I'm Kushagra*
 #  -Creative Developer
-##     — Computer Science graduate of
-##        the University of Melbourne
+##     — And Vibe Coding
+##      Enjoyer
 ##
 ###   *Scroll* or type "help" to get started

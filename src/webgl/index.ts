@@ -66,7 +66,52 @@ export default function WebGL() {
     const scene = new THREE.Scene();
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.55);
     scene.add(ambientLight);
-    scene.background = new THREE.Color(0xf6d4b1);
+    
+    // Create an enhanced background with gradient
+    const bgColor1 = new THREE.Color(0x2e3436); // Base color
+    const bgColor2 = new THREE.Color(0x1c2021); // Darker version for gradient
+    
+    // Create background with gradient using a shader
+    const bgGeometry = new THREE.PlaneGeometry(100, 100);
+    const bgMaterial = new THREE.ShaderMaterial({
+      uniforms: {
+        color1: { value: bgColor1 },
+        color2: { value: bgColor2 },
+        ratio: { value: window.innerHeight / window.innerWidth }
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 color1;
+        uniform vec3 color2;
+        uniform float ratio;
+        varying vec2 vUv;
+        
+        void main() {
+          vec2 uv = vUv;
+          uv.y *= ratio;
+          float gradient = length(uv - vec2(0.5 * ratio, 0.5)) * 1.5;
+          vec3 color = mix(color1, color2, gradient);
+          gl_FragColor = vec4(color, 1.0);
+        }
+      `
+    });
+    
+    const bgMesh = new THREE.Mesh(bgGeometry, bgMaterial);
+    bgMesh.position.z = -50;
+    bgMesh.scale.set(1, 1, 1);
+    scene.add(bgMesh);
+    
+    // Add subtle fog effect
+    scene.fog = new THREE.FogExp2(bgColor1.getHex(), 0.035);
+    
+    // Keep background color for compatibility
+    scene.background = bgColor1;
 
     /**
      * Camera
@@ -165,7 +210,6 @@ export default function WebGL() {
       "resize",
       () => {
         // Update sizes
-
         viewHeight = document.documentElement.clientHeight;
         sizes.width = document.documentElement.clientWidth;
         sizes.height = window.innerHeight;
@@ -175,6 +219,11 @@ export default function WebGL() {
           [0.8, 1.8],
           [0, 2.5]
         );
+        
+        // Update background shader aspect ratio on resize
+        if (bgMaterial.uniforms) {
+          bgMaterial.uniforms.ratio.value = window.innerHeight / window.innerWidth;
+        }
       },
       { passive: true }
     );
@@ -211,9 +260,17 @@ export default function WebGL() {
     assists.keyboardMesh.material = computerMaterial;
     computerGroup.add(assists.keyboardMesh);
 
-    assists.shadowPlaneMesh.material = new THREE.MeshBasicMaterial({
-      map: assists.bakeFloorTexture,
+    // Create a more visible shadow that stands out from the background
+    const shadowMaterial = new THREE.MeshBasicMaterial({
+      color: 0x111111, // Much darker color for better visibility
+      transparent: true,
+      opacity: 0.5,    // Moderate opacity to ensure visibility
+      depthWrite: false // Prevents z-fighting with other elements
     });
+    
+    assists.shadowPlaneMesh.material = shadowMaterial;
+    assists.shadowPlaneMesh.position.y = -0.02; // Lower it slightly to avoid z-fighting
+    assists.shadowPlaneMesh.scale.set(1.5, 1.5, 1.5); // Make shadow larger
     computerGroup.add(assists.shadowPlaneMesh);
 
     computerGroup.position.x = controlProps.computerHorizontal;
@@ -230,8 +287,19 @@ export default function WebGL() {
       stats.begin();
 
       const deltaTime = DeltaTime();
-
       const elapsedTime = clock.getElapsedTime();
+
+      // Animate the background gradient subtly
+      if (bgMaterial.uniforms) {
+        // Subtle pulsing effect
+        const pulseAmount = Math.sin(elapsedTime * 0.5) * 0.05 + 0.95;
+        bgColor2.setRGB(
+          0x1c/255 * pulseAmount,
+          0x20/255 * pulseAmount,
+          0x21/255 * pulseAmount
+        );
+        bgMaterial.uniforms.color2.value = bgColor2;
+      }
 
       const zoomFac = valMap(scroll, [0, 1], [0, 1]);
 

@@ -3,14 +3,15 @@
 
 ##   Hi there, 
 
-#  *I'm Ed H*
+#  *I'm Kush*
 
-##   • Software Engineer
-##   • Digital Designer
-
-
-
+##   • AI/ML Enjoyer
+##   • Part Time Programmer
+##   • Full Time Gym Rat
 
 
-### Welcome to ED-Linux 1.0 LTS
-### →→ Scroll or type "help" to get started
+
+
+
+### Welcome to my-computer --v1.0
+### →→ Scroll or type "help" to get started..

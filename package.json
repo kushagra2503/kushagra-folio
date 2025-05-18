@@ -1,8 +1,4 @@
-{
-  "author": {
-    "name": "Ed Hinrichsen",
-    "url": "https://www.edwardh.io"
-  },
+{  "author": {    "name": "Kushagra",    "url": "https://kushagra-folio.com"  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/edhinrichsen/retro-computer-website.git"

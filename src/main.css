@@ -3,6 +3,10 @@
 
 :root {
   --color: #525252;
+  --bg-color: #2e3436;
+  --text-color: #d3d7cf;
+  --accent-color: #729fcf;
+  --highlight-color: #8ae234;
 }
 
 @font-face {
@@ -22,7 +26,8 @@
 html,
 body {
   overflow-x: hidden;
-  background-color: #f6d4b1;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   font-family: "chill", sans-serif;
   font-size: 18px;
   -webkit-text-size-adjust: 100%;
@@ -51,7 +56,7 @@ body {
   bottom: 0;
   width: clamp(0px, 95vw, 580px);
   margin: auto;
-  color: var(--color);
+  color: var(--text-color);
   outline: none;
   z-index: 0;
 }
@@ -79,7 +84,7 @@ body {
 }
 
 #loading {
-  color: #f6d4b1;
+  color: var(--text-color);
   background-color: var(--color);
   position: fixed;
   top: 0;
@@ -109,8 +114,8 @@ body {
   position: relative;
   width: 100%;
   height: 64px;
-  border: dashed 2px #f6d4b1;
-  box-shadow: 2px 2px 0px var(--color), 6px 6px 0px rgba(246, 212, 177, 0.7);
+  border: dashed 2px var(--text-color);
+  box-shadow: 2px 2px 0px var(--color), 6px 6px 0px rgba(211, 215, 207, 0.7);
 }
 
 #loading-bar-progress {
@@ -119,7 +124,7 @@ body {
   bottom: 2px;
   left: 2px;
   right: 2px;
-  background-color: #f6d4b1;
+  background-color: var(--accent-color);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.2s;
@@ -127,7 +132,7 @@ body {
 
 h1 {
   display: inline-block;
-  color: #f6d4b1;
+  color: var(--text-color);
   background-color: var(--color);
   font-family: "public-pixel", monospace;
   font-size: 2em;
@@ -143,7 +148,7 @@ h2 {
   display: inline-block;
   font-size: 1.2em;
   text-align: center;
-  color: #f6d4b1;
+  color: var(--text-color);
   background-color: var(--color);
   font-family: "public-pixel", monospace;
   padding: 16px;
@@ -157,7 +162,7 @@ h2 {
 h3 {
   font-size: 1.2em;
   text-align: center;
-  color: var(--color);
+  color: var(--text-color);
   font-family: "public-pixel", monospace;
   padding-top: 4px;
   padding-bottom: 8px;
@@ -203,7 +208,7 @@ p {
   display: inline-block;
   padding: 4px 8px;
   border: dashed 1px var(--color);
-  box-shadow: 1px 1px 0px #f6d4b1, 4px 4px 0px rgba(82, 82, 82, 0.25);
+  box-shadow: 1px 1px 0px var(--accent-color), 4px 4px 0px rgba(82, 82, 82, 0.25);
 }
 
 .image {
@@ -218,12 +223,11 @@ p {
 .image * {
   box-sizing: border-box;
   width: clamp(0px, 95vw, 1200px);
-
-  box-shadow: 1px 1px 0px #f6d4b1, 6px 6px 0px rgba(82, 82, 82, 0.25);
+  box-shadow: 1px 1px 0px var(--accent-color), 6px 6px 0px rgba(82, 82, 82, 0.25);
 }
 
 main {
-  color: var(--color);
+  color: var(--text-color);
   margin-top: 200vh;
   text-align: center;
   position: relative;
@@ -259,7 +263,7 @@ footer {
   margin: auto;
   padding: 32px 0px;
   text-align: center;
-  color: var(--color);
+  color: var(--text-color);
   z-index: 2;
   position: relative;
 }
@@ -273,12 +277,12 @@ a {
 }
 a:hover {
   transform: scale(1.1);
-  box-shadow: 1px 1px 0px #f6d4b1, 4px 4px 0px rgba(82, 82, 82, 0.25);
+  box-shadow: 1px 1px 0px var(--accent-color), 4px 4px 0px rgba(82, 82, 82, 0.25);
 }
 
 a:active {
   transform: scale(1);
-  box-shadow: 1px 1px 0px #f6d4b1, 3px 3px 0px rgba(82, 82, 82, 0.4);
+  box-shadow: 1px 1px 0px var(--accent-color), 3px 3px 0px rgba(82, 82, 82, 0.4);
 }
 
 .btn {
@@ -289,11 +293,11 @@ a:active {
   gap: 0.25rem;
   box-shadow: 6px 6px 0px rgba(82, 82, 82, 0.25);
   background-color: var(--color);
-  color: #f6d4b1;
+  color: var(--text-color);
   cursor: pointer;
   transition: all 0.3s;
   padding: 4px 24px;
-  border: #f6d4b1 solid 1px;
+  border: var(--accent-color) solid 1px;
   text-decoration: none;
 }
 
@@ -319,12 +323,12 @@ a:active {
   align-items: center;
   justify-content: center;
 
-  box-shadow: 1px 1px 0px #f6d4b1, 6px 6px 0px rgba(82, 82, 82, 0.25);
+  box-shadow: 1px 1px 0px var(--accent-color), 6px 6px 0px rgba(82, 82, 82, 0.25);
 }
 
 .portrait-tag {
   position: absolute;
-  color: white;
+  color: var(--text-color);
   left: calc(50% + 120px);
   top: 30px;
   transform: translateX(-50%) rotate(20deg);
@@ -340,10 +344,10 @@ a:active {
   display: block;
   content: " ";
   box-shadow: 6px 6px 0px rgba(82, 82, 82, 0.25);
-  background-color: #040d21;
+  background-color: #1c2021;
   background-image: url(img/bg.png);
   background-size: contain;
   filter: blur(30px);
-  color: #f6d4b1;
-  border: #f6d4b1 solid 1px;
+  color: var(--text-color);
+  border: var(--accent-color) solid 1px;
 }
